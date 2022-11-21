@@ -1,0 +1,5 @@
+redis==3.5.3
+rejson==0.5.6
+timeloop==1.0.2
+python-decouple==3.6
+aiohttp==3.7.4

@@ -1,0 +1,32 @@
+version: "3.3"
+
+volumes:
+  web_volume:
+    driver: local
+  db_volume:
+    driver: local
+
+services:
+  db:
+    image: redis/redis-stack-server:latest
+    container_name: cache
+    hostname: cache
+    network_mode: host
+
+  updater:
+    build: ./updater/
+    container_name: updater
+    hostname: updater
+    depends_on:
+      - db
+    network_mode: host
+    environment:
+      HTTP_PROXY: ${HTTP_PROXY}
+
+  web:
+    build: ./web_api/
+    container_name: binance_web
+    hostname: binance_web
+    depends_on:
+      - db
+    network_mode: host
